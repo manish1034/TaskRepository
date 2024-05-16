@@ -27,11 +27,6 @@ export default {
   props: {
     customers: Array,
   },
-  methods: {
-    deleteCustomer(index) {
-      this.$emit("delete-customer", index);
-    },
-  },
 };
 </script>
 
