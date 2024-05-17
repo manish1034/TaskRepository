@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onUnmounted } from "vue";
+import { ref, watch } from "vue";
 import { useAnimalStore } from "../../store/AnimalStore";
 
 const title = ref("");
@@ -61,20 +61,6 @@ watch(props, () => {
     console.log(useAnimalStore().list[props.active]);
   }
 });
-
-// for keyup .enter event listener
-// const onKeyup = (e) => {
-//   if ( e.key == 'Enter') {
-//     confirmSelection();
-//   } else if (e.code === "Escape"){
-//     cancelSelection()
-//   }
-// }
-
-// window.addEventListener("keyup", onKeyup)
-// onUnmounted(() => {
-//     window.removeEventListener("keyup", onKeyup)
-// })
 </script>
 
 <style scoped>

@@ -19,10 +19,10 @@ export const useAnimalStore = defineStore("animalStore", () => {
 
   const updateAnimal = (image, title, type, index) => {
     animalList.value[index] = {
-        image,
-        title,
-        type,
-        id: animalList[index].id
+        image: image,
+        title: title,
+        type: type,
+        id: animalList.value[index].id
     }
   }
 
