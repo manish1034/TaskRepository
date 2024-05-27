@@ -1,32 +1,77 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <Home />
-  </div>
+  <main>
+    <!-- Header -->
+    <header>
+      <img src="./assets/down.jpeg" alt="Logo" />
+      <h1>Animal kingdom</h1>
+    </header>
+    <div class="btn-div">
+      <button class="btn" @click="isPopupVisible = true">Create</button>
+      <popUp
+        v-if="isPopupVisible"
+        :active="updateAnimalIndex"
+        @confirm="handleConfirm"
+        @cancel="handleCancel"
+      />
+    </div>
+    <!-- <createBtn :index="updateAnimalIndex" @close="updateAnimalIndex = -1" /> -->
+    <div class="main">
+      <card
+        v-for="(animal, index) in animalStore.list"
+        :key="animal.id"
+        :animal="animal"
+        @delete="animalStore.delete(index)"
+        @update="(updateAnimalIndex = index), (isPopupVisible = true)"
+      />
+    </div>
+  </main>
 </template>
 
-<script>
-import Home from './components/Home.vue';
+<script setup>
+import popUp from "./components/popUp.vue";
+import card from "./components/card.vue";
+import { useAnimalStore } from "../store/AnimalStore";
 
-export default {
-  name: 'app',
-  components: {
-    Home
+import { ref } from "vue";
+
+const animalStore = useAnimalStore();
+
+const updateAnimalIndex = ref(-1);
+const isPopupVisible = ref(false);
+
+const handleConfirm = (data) => {
+  if (updateAnimalIndex.value == -1) {
+    animalStore.add(data.image, data.title, data.type);
+  } else {
+    animalStore.update(data.image, data.title, data.type, updateAnimalIndex.value);
+    updateAnimalIndex.value = -1;
   }
-}
+  isPopupVisible.value = false;
+};
+
+const handleCancel = () => {
+  isPopupVisible.value = false;
+  updateAnimalIndex.value = -1;
+};
 </script>
 
 <style>
-#app {
+@import "./assets/main1.css";
+.btn-div {
+  width: 100%;
+  padding: 0 1rem;
+  max-width: 1200px;
   display: flex;
-  flex-direction: column;
-  justify-content: center; 
-  align-items: center; 
-  height: 100vh; 
+  justify-content: flex-end;
+  margin: 0 auto;
+  margin-top: 1rem;
 }
-
-.img-size {
-  width: 100px;
-  height: auto;
+.btn {
+  padding: 0.6rem 1rem;
+  font-size: larger;
+  border: 1px solid green;
+  border-radius: 0.5rem;
+  color: darkgreen;
+  cursor: pointer;
 }
 </style>
