@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!-- <img src="./assets/logo.png"> -->
     <Home />
   </div>
 </template>
@@ -23,10 +23,5 @@ export default {
   justify-content: center; 
   align-items: center; 
   height: 100vh; 
-}
-
-.img-size {
-  width: 100px;
-  height: auto;
 }
 </style>
